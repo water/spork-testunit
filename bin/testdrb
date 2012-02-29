@@ -11,7 +11,9 @@ rescue LoadError
 end
 
 require 'drb'
+
+port = ENV["PORT"] || 8988
 DRb.start_service("druby://127.0.0.1:0") # this allows Ruby to do some magical stuff so you can pass an output stream over DRb.
-test_server = DRbObject.new_with_uri("druby://127.0.0.1:8988")
+test_server = DRbObject.new_with_uri("druby://127.0.0.1:#{port}")
 result = test_server.run(ARGV, $stderr, $stdout)
 
